@@ -1,0 +1,105 @@
+<html>
+<head>
+  <title>jQuery Assignment</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row hed">
+    <h2>JQuery Assignement</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="tdata">
+    <table class="table table-bordered table-hover" id="dtable">
+     <tr>
+      <th>IndicatorName</th>
+      <th>Year</th>
+      <th>Value</th>
+      <th>Action</th>
+     </tr>
+    </table>
+  </div>
+  <div class="gdata">
+    <script src="d3script1.js"></script>
+  </div>
+</div>
+  <div class="row">
+    <div class="newData">
+      <form id="newdata" class="form">
+       <label for="in">IndicatorName</label>
+       <select class="form-control" id="in">
+         <option value="Rural population (% of total population)">Rural population</option>
+         <option value="Urban population (% of total)">Urban population</option>
+       </select><br>
+       <label for="yr">Year:</label>
+       <input type="number" id="yr" name="yr" class="form-control"></input><br>
+       <label for="val">Value:</label>
+       <input type="number" id="val" name="val" class="form-control"></input>
+       <button type="button" id="addbtn" class="btn btn-success">Add</button>
+     </form>
+    </div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+var obj=[];
+var indicatorname="";
+var year=0;
+var value=0;
+  $.getJSON("output1.json", function(data){
+    obj=data;
+    var dt="";
+     for(var i=0;i<obj.length;i++)
+     {
+         var tr="<tr>",
+          td1="<td>"+obj[i]["IndicatorName"]+"</td>",
+          td2="<td>"+obj[i]["Year"]+"</td>",
+          td3="<td>"+obj[i]["Value"]+"</td>",
+          td4="<td><button id=\"" + obj[i]["IndicatorName"] + obj[i]["Year"]+"\">Delete</button></td></tr>";
+         dt=tr+td1+td2+td3+td4;
+         $("#dtable").append(dt);
+     }
+     redraw(obj);
+  });
+
+  $("#addbtn").on("click",function(){
+    var obj1={};
+    indicatorname=$('#in').val();
+    year=$('#yr').val();
+    value=$('#val').val();
+    obj1["CountryName"]="India";
+    obj1["IndicatorName"]=indicatorname;
+    obj1["Year"]=year;
+    obj1["Value"]=value;
+    console.log(obj1);
+    // var bindex=obj.length;
+    obj.push(obj1);
+    var td4="<td><button id=\""+ indicatorname+year +"\">Delete</button></td></tr>";
+    var ntr="<tr><td>"+obj1["IndicatorName"]+"</td><td>"+obj1["Year"]+"</td><td>"+obj1["Value"]+"</td>"+td4;
+    $("#dtable").append(ntr);
+    $('.gdata').empty();
+    console.log(obj);
+    redraw(obj);
+  });
+
+  $("#dtable").on("click","button",function(){
+    for(var i=0;i<obj.length;i++){
+      var s = obj[i]["IndicatorName"] + "" + obj[i]["Year"];
+      if(s == $(this).attr("id")){
+        obj.splice(i,1);
+        $('.gdata').empty();
+        console.log(obj);
+        redraw(obj);
+        break;
+      }
+    }
+    $(this).parent().parent().css("display","none");
+  });
+</script>
+</body>
+</html>

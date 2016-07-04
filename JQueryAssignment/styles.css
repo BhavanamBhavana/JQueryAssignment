@@ -1,0 +1,57 @@
+  .tdata{
+    width: 30%;
+    align-items: center;
+    float: left;
+    overflow: auto;
+    height: 70%;
+  }
+  .hed{padding-left: 550px;}
+  .gdata{
+    width: 70%;
+    align-items: center;
+    float: left;
+  }
+  .row {
+    margin-right: 2px;
+    margin-left: 10px;
+}
+.row .tdata,.gdata{
+  margin-top: 40px;
+}
+.row .newData{
+  margin-top: 20px;
+}
+.newData{
+  margin-left:400px;
+  width: 50%;
+}
+
+  path {
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+      }
+  path1 {
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+      }
+  .chart-line {
+      fill: none;
+      stroke: blue;
+      stroke-width: 1px;
+    }
+    .axis text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12pt;
+      text-align: left;
+    }
+    .axis .label {
+      font-size: 18pt;
+    }
+
+   .axis line {
+      fill: none;
+      /*stroke: #000;*/
+      shape-rendering: crispEdges;
+    }
